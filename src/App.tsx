@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import BlogList from "./components/BlogList"
+import BlogDetail from "./components/BlogDetails"
+import CreateBlogForm from "./components/CreateBlogForm"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedBlogId, setSelectedBlogId] = useState<number | null>(null)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ display: "flex", height: "100vh" }}>
+      <div
+        style={{
+          width: "30%",
+          padding: "16px",
+          borderRight: "1px solid #ccc",
+        }}
+      >
+        <CreateBlogForm />
+        <BlogList
+          onSelect={setSelectedBlogId}
+          selectedId={selectedBlogId}
+        />
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <div style={{ width: "70%", padding: "16px" }}>
+        <BlogDetail blogId={selectedBlogId} />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
